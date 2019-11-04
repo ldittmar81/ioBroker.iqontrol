@@ -179,12 +179,16 @@
 	var states = {};
 
 	//Translations
-	$.get("adapter/iqontrol/words.js", function(script) {
-		let translation = script.substring(script.indexOf('{'), script.length);
-		translation = translation.substring(0, translation.lastIndexOf(';'));
-		systemDictionary = $.extend(systemDictionary, JSON.parse(translation));
-	});
-
+        $.get({
+            url: 'adapter/iqontrol/words.js',
+            success: function (script) {
+                let translation = script.substring(script.indexOf('{'), script.length);
+                translation = translation.substring(0, translation.lastIndexOf(';'));
+                $.extend(systemDictionary, JSON.parse(translation));
+            },
+            async: false
+        });
+	
 	//Default Settings
 	if (typeof defaults !== 'undefined') {
 		defaults["iqontrol"] = function (obj, instanceObj) {
